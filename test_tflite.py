@@ -1,10 +1,16 @@
+'''
+Test program for Tflite mdoel
+'''
+
 import tflite_runtime.interpreter as tflite
 import numpy as np
 from time import time
+
 # buffering the last received n frames
 n= 50
 m= 128
 buffer = np.zeros((n,m),dtype="float32")
+
 def message(timestamp_ms, output_data):
     """Constructs message
 
@@ -23,6 +29,7 @@ def message(timestamp_ms, output_data):
         "m": output_data     # 10 value vector with probabilities [0-100] 
         }
     return payload
+
 def run_model(model,power):
     """invokes model to make a prediction
 
@@ -33,7 +40,7 @@ def run_model(model,power):
     Returns:
         payload (dict): dictionary containing message to be sent to the cloud 
     """    # get input and output details
-    print("hello")
+
     input_details = model.get_input_details()
     output_details = model.get_output_details()
     model.allocate_tensors()
